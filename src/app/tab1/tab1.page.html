@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Tab One
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <h2 style="font-size: 40px;">Bem Vindo Ao Sistema de Gerenciamento de Entrada e Saida de Viaturas</h2>
+  <!--<p>
+    This starter project comes with simple tabs-based layout for apps
+    that are going to primarily use a Tabbed UI.
+  </p>
+  <p>
+    Take a look at the <code>src/pages/</code> directory to add or change tabs,
+    update any existing page or create new pages.
+  </p>-->
+  <p>
+    <ion-item>
+      <ion-label stacked>Registros </ion-label>
+      <!-- <ion-input type="text" #box (keyup.enter)="onEnter(box.value); box.value=''"
+              [value]="newValue"
+      ></ion-input> -->
+    </ion-item>
+  </p>
+
+  <ion-row style="border:1px primary; color:rgb(172, 170, 170); font-size: inherit;
+  background: #1a1a1d;
+  font-weight: bold;" class="espacoTabela">
+    <ion-col col-1>
+      <ion-label>#</ion-label>
+    </ion-col>
+    <ion-col col-3>
+      <ion-label>Proprietario</ion-label>
+    </ion-col>
+    <ion-col col-2>
+      <ion-label>Matricula</ion-label>
+    </ion-col>
+    <ion-col col-3>
+      <ion-label>Hora de Entrada</ion-label>
+    </ion-col>
+    <ion-col col-3>
+      <ion-label>Hora de Saida</ion-label>
+    </ion-col>
+  </ion-row>
+
+  <div *ngFor="let item of myNotes.myNotes; let index = index;" >
+    <ion-row class="espacoTabela" [ngClass]="{'linha1': (index%2)==1,'linha2': (index%2) == 0}" style="border-bottom: groove 0.0px; color: #508F82; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: small;  ">
+      <ion-col col-1>
+        <ion-label>{{index+1}}</ion-label>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label>{{item['doc'].note.proprietario}}</ion-label>
+      </ion-col>
+      <ion-col col-2>
+        <ion-label>{{item['doc'].note.matricula}}</ion-label>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label>{{item['doc'].note?.data_entrada}}</ion-label>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label>{{item['doc'].note?.data_saida}}</ion-label>
+      </ion-col>
+    </ion-row>
+    </div>
+  <!-- <ion-list>
+    <ion-item class="item-remove-animate item-icon-right" *ngFor="let item of myNotes.myNotes" type="item-text-wrap" >
+      
+      <h2>{{item['doc'].note}}</h2>
+      <i class="icon ion-chevron-right icon-accessory"></i>
+      <ion-row class="espacoTabela" [ngClass]="{'linha1': (index%2)==1,'linha2': (index%2) == 0}" style="border-bottom: groove 0.0px; color: #508F82; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: small;  ">
+        <ion-col col-1>
+          <ion-label>{{index+1}}</ion-label>
+        </ion-col>
+        <ion-col col-3>
+          <ion-label>{{item['doc'].note}}</ion-label>
+        </ion-col>
+        <ion-col col-6>
+          <ion-label>{{item['doc'].note}}</ion-label>
+        </ion-col>
+        <ion-col col-2>
+          <ion-label>{{item['doc'].note}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list> -->
+
+  
+
+</ion-content>

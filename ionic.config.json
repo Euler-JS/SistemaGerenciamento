@@ -1,0 +1,7 @@
+{
+  "name": "PouchDB",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
