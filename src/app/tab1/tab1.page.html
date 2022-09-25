@@ -57,10 +57,15 @@
         <ion-label>{{item['doc'].note.matricula}}</ion-label>
       </ion-col>
       <ion-col col-3>
-        <ion-label>{{item['doc'].note?.data_entrada}}</ion-label>
+        <ion-label>{{item['doc'].note?.data_entrada | date:"dd/MM/yyyy hh:mm"}}</ion-label>
       </ion-col>
       <ion-col col-3>
-        <ion-label>{{item['doc'].note?.data_saida}}</ion-label>
+        <div *ngIf="item['doc'].note?.data_saida.length > 2">
+          <ion-label>{{item['doc'].note?.data_saida | date:"dd/MM/yyyy hh:mm"}}</ion-label>
+        </div>
+        <div *ngIf="item['doc'].note?.data_saida.length == 0">
+          <ion-label>{{item['doc'].note?.data_saida}}</ion-label>
+        </div>
       </ion-col>
     </ion-row>
     </div>

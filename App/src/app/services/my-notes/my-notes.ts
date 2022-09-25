@@ -12,7 +12,7 @@ export class MyNotesProvider {
 	public initDB()
 	{
 		this.database = new PouchDB('my-notes');
-		this.rp_database = new PouchDB('http://127.0.0.1:5984/my-notes')
+		this.rp_database = new PouchDB('http://192.168.43.230:5984/my-notes')
 		this.database.sync(this.rp_database, {
 			live: true,
 			retry: true

@@ -6,7 +6,7 @@ import PouchDB from 'pouchdb';
 export class MyNotesProvider {
 
 	public database: any;
-	public rp_database: any = new PouchDB('http://admin:euler2014@192.168.1.163:5984/registro-viaturas');
+	public rp_database: any = new PouchDB('http://admin:euler2014@192.168.43.230:5984/registro-viaturas');
 	private myNotes=[];
 
 	constructor() {
