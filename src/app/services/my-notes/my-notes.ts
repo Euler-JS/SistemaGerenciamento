@@ -7,7 +7,7 @@ export class MyNotesProvider {
 
 	public database: any;
 	public rp_database: any = new PouchDB('http://admin:euler2014@192.168.43.230:5984/registro-viaturas');
-	private myNotes=[];
+	public myNotes=[];
 
 	constructor() {
 		this.database = new PouchDB('registro-viaturas');

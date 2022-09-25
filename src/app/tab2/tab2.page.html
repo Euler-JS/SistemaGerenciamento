@@ -7,6 +7,63 @@
 </ion-header>
 
 <ion-content>
+  <ion-row style="border:1px primary; color:rgb(172, 170, 170); font-size: inherit;
+  background: #1a1a1d;
+  font-weight: bold;" class="espacoTabela">
+    <ion-col col-1>
+      <ion-label></ion-label>
+    </ion-col>
+    <ion-col col-3>
+      <ion-datetime mode="ios" placeholder="Escolher Data" ref="el => this.customDatetime = el" id="myPicker1"
+        #myPicker1 displayFormat='DD/MM/YYYY' (ionChange)="dataEscolhida=myPicker1.value"
+        aria-expanded="false" aria-haspopup="true">
+        <!-- <ion-button color="primary" (click)="selecionar(dateStatus)">Confirmar</ion-button> -->
+      </ion-datetime>
+    </ion-col>
+    <ion-col col-2>
+      <ion-item>
+        <ion-label position="floating">Matricula</ion-label>
+        <ion-input [(ngModel)]="matricula"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col col-2>
+      <ion-item>
+        <ion-button (click)="pesquisar()">Pesquisar</ion-button>
+      </ion-item>
+    </ion-col>
+    <!-- <ion-col col-3>
+      <ion-item>
+        <ion-label position="floating">Intervalo de Tempo</ion-label>
+        <ion-input [(ngModel)]="inter_tempo"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col col-3>
+      <ion-label>Hora de Saida</ion-label>
+    </ion-col> -->
+  </ion-row>
+
+  <!-- <ion-row class="row-action-entradas"> -->
+    <!-- <ion-col col-2 style="align-self: center;">
+      <ion-label>
+        Fazer Relatório Por :
+      </ion-label>
+    </ion-col>
+
+    <ion-col col-10>
+      <ion-list>
+        <ion-item>
+          <ion-select placeholder="Escolher" (ionChange)="changeView1($event)">
+            <ion-select-option value="ofertas">Data</ion-select-option>
+            <ion-select-option value="dizimos">Matricula</ion-select-option>
+            <ion-select-option value="doacoes">Intervalo de tempo no parque</ion-select-option>
+            <ion-select-option value="dispesas_fixa">Mais entradas no parque</ion-select-option>
+            <ion-select-option value="dispesas_nao_fixas">Dispesas Nao Fixas</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row> -->
+
   <ion-grid>
     <ion-row>
       <ion-col class="ion-text-end">
@@ -27,10 +84,33 @@
     </ion-col>
   </ion-row>
 
-  <ion-card class="quote-card" *ngFor="let entry of allDocs">
+  <ion-card class="quote-card" *ngFor="let item of allDocs; let index = index;">
+    <ion-row class="espacoTabela" [ngClass]="{'linha1': (index%2)==1,'linha2': (index%2) == 0}" style="border-bottom: groove 0.0px; color: #508F82; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: small;  ">
+      <ion-col col-1>
+        <ion-label>{{index+1}}</ion-label>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label>{{item['doc'].note.proprietario}}</ion-label>
+      </ion-col>
+      <ion-col col-2>
+        <ion-label>{{item['doc'].note.matricula}}</ion-label>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label>{{item['doc'].note?.data_entrada | date:"dd/MM/yyyy hh:mm"}}</ion-label>
+      </ion-col>
+      <ion-col col-3>
+        <div *ngIf="item['doc'].note?.data_saida.length > 2">
+          <ion-label>{{item['doc'].note?.data_saida | date:"dd/MM/yyyy hh:mm"}}</ion-label>
+        </div>
+        <div *ngIf="item['doc'].note?.data_saida.length == 0">
+          <ion-label>{{item['doc'].note?.data_saida}}</ion-label>
+        </div>
+      </ion-col>
+    </ion-row>
       <ion-card-content>
-        <p class="quote">{{entry['doc'].time | date:'medium'}}</p>
-        <p class="weight">{{entry['doc'].weight}}</p>        
+
+        <!-- <p class="quote">{{entry['doc'].time | date:'medium'}}</p>
+        <p class="weight">{{entry['doc'].weight}}</p>         -->
       </ion-card-content>
   
     </ion-card>

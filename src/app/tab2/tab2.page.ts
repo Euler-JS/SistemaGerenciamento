@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { KangarooService } from '../kangaroo.service';
 import { Observable } from 'rxjs';
+import { MyNotesProvider } from '../services/my-notes/my-notes';
 
 export interface Entry {
 	_id: string;
@@ -17,46 +18,62 @@ export interface Entry {
 	styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+	matricula: string = ""
+	dataEscolhida: string = ""
+	inter_tempo
+	allDocs= [];
 
-	allDocs: any;
-
-	constructor(private kangarooDB: KangarooService) {
-		// this.allDocs = this.kangarooDB.db.allDocs({include_docs: true});
-		const _self = this;
-		this.kangarooDB.db.allDocs({
-			include_docs: true,
-			attachments: true
-		}).then(result => {
-			// handle result
-			_self.allDocs = result.rows;
-			console.log("Results: " + JSON.stringify(_self.allDocs));
-		}).catch(err => {
-			console.log(err);
-		});
-
+	constructor(public myNotes: MyNotesProvider) {
+		
 
 	}
 
-	writeUserData(testId) {
+	pesquisar()
+	{
+		this.allDocs = []
 
-		let item = {} as Entry;
-		item._id = testId.value;
-		item.test = "test";
-		item.weight = 1234;
-		item.time = Date.now();
-		this.kangarooDB.db.put(item);
-
-		let _self = this;
-		this.kangarooDB.db.allDocs({
-			include_docs: true,
-			attachments: true
-		}).then(function (result) {
-			// handle result
-			_self.allDocs = result.rows;
-			console.log("Results: " + JSON.stringify(_self.allDocs));
-		}).catch(function (err) {
-			console.log(err);
-		});
+		
+		this.allDocs = [... this.myNotes.myNotes]
+		let e = this.allDocs[0].doc.note.data_entrada
+		console.log((e.split(':'))[0].split('T')[0]);
+		
+		// return
+		if(this.matricula.length > 0 && this.dataEscolhida.length > 0)
+		{
+			this.allDocs = this.allDocs.filter(dado=> dado.doc.note.matricula == this.matricula && 
+				(dado.doc.note.data_entrada.split(':'))[0].split('T')[0] == this.dataEscolhida)
+			console.log("As duas coisas escolhidas");
+			this.clearAll()
+		}
+		else if(this.matricula.length > 0)
+		{
+			this.allDocs = this.allDocs.filter(dado=> dado.doc.note.matricula == this.matricula)
+			console.log("Somente data matricula");
+			this.clearAll()
+		}
+		
+		else if(this.dataEscolhida.length > 0)
+		{
+			this.allDocs = this.allDocs.filter(dado=> (dado.doc.note.data_entrada.split(':'))[0].split('T')[0] == this.dataEscolhida)
+			console.log("Somente data escolhida");
+			this.clearAll()
+		}
+		else
+		{
+			console.log("Nenhuma informacao escolhida");
+			// this.clearAll()
+		}
+		
+		
 	}
 
+	clearAll()
+	{
+		console.log(this.allDocs);
+		this.dataEscolhida = ""
+		this.matricula = ""
+
+		let inputDate = <HTMLInputElement> document.getElementById("myPicker1");
+		inputDate.value = ""
+	}
 }
